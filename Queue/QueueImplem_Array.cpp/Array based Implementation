@@ -1,0 +1,110 @@
+// Array based Implementation
+//here array will be circular one
+#include <iostream>
+using namespace std;
+
+
+class Queue{
+public:
+	void enqueue(int x);
+	void dequeue();
+	bool IsFull();
+	bool IsEmpty();
+	int top();
+private:
+	int q[10];
+	int front = -1;
+	int rear = -1;
+};
+
+int Queue::top() {
+	if (IsEmpty())
+		return -1;
+	return q[front];
+}
+
+bool Queue::IsFull()
+{
+	if ((rear  + 1) % 10 == front)
+		return true;
+	else
+		return false;
+}
+
+bool Queue::IsEmpty()
+{	
+	if (rear == -1 && front == -1) {
+		return true;
+	}
+	else
+		return false;
+}
+
+void Queue::enqueue(int x)
+{
+	if (IsFull())
+		cout << "No Space left to enqueue" << endl;
+	else if (IsEmpty())
+		front = rear = 0;
+	else
+		rear = (rear + 1) % 10;
+
+	q[rear] = x;
+}
+
+void Queue::dequeue()
+{
+	if (IsEmpty())
+	{
+		cout << "Empty Queue" << endl;
+		return;
+	}
+	else if (front == rear)
+		front = rear = -1;
+	else {
+		q[front] = -1;
+		front = (front + 1) % 10;
+	}
+	
+	
+}
+
+
+
+int main() {
+	Queue x;
+	x.enqueue(0);
+	x.dequeue();
+	x.dequeue();
+	x.enqueue(1);
+	x.enqueue(2);
+	x.enqueue(3);
+	x.enqueue(4);
+
+	x.enqueue(5);
+	x.enqueue(6);
+	x.enqueue(7);
+	x.enqueue(8);
+	x.enqueue(9);
+	x.enqueue(10);
+	x.enqueue(11);
+	x.dequeue();
+	x.dequeue();
+	x.dequeue();
+	x.dequeue();
+	x.dequeue();
+	x.dequeue();
+	x.enqueue(34);
+	x.dequeue();
+	x.dequeue();
+	x.dequeue();
+	x.dequeue();
+	x.dequeue();
+
+	x.dequeue();
+	x.enqueue(13);
+	x.dequeue();
+	x.dequeue();
+
+	return 0;
+}
